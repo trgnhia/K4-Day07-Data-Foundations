@@ -1,8 +1,13 @@
 # Báo Cáo Nhóm — Lab 7: Embedding & Vector Store
 
-**Nhóm:** [Tên nhóm]
-**Thành viên:** [Họ tên từng thành viên]
-**Ngày:** [Ngày nộp]
+**Nhóm:** Shopee Policy Retrieval — K4
+**Thành viên:** 
+ Trần Đại Nghĩa (2A202601328)
+ Vũ Quang Huy (2A202601412)
+ Nguyễn Hoàng Sơn (2A202601939)
+ Nguyễn Đức Mạnh (2A202601176)
+ Thiều Thị Ngọc Anh (2A202601864)
+**Ngày:** 03/08/2026
 
 > **Nộp 1 bản / nhóm.** Phần cá nhân (hướng tiếp cận, kết quả riêng, dự đoán…) mỗi thành viên nộp riêng trong `REPORT_CANHAN.md`. Chi tiết thang điểm: `docs/SCORING.md`.
 
@@ -59,42 +64,55 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 
 | Tài liệu | Chiến lược (Strategy) | Số lượng Chunk | Độ dài trung bình | Giữ được ngữ cảnh không? |
 |-----------|----------|-------------|------------|-------------------|
-| | FixedSizeChunker (`fixed_size`) | | | |
-| | SentenceChunker (`by_sentences`) | | | |
-| | RecursiveChunker (`recursive`) | | | |
+| `return-request-process` | FixedSize (`chunk_size=400`) | 3 | 285.3 | Có, nhưng có thể cắt giữa section. |
+| `return-request-process` | Sentence (`3 câu/chunk`) | 4 | 211.8 | Có; phù hợp quy trình ngắn. |
+| `return-request-process` | Recursive (`chunk_size=400`) | 7 | 120.6 | Có ranh giới tự nhiên, nhưng tạo nhiều chunk nhỏ. |
+| `seller-listing-policy` | FixedSize (`chunk_size=400`) | 3 | 388.0 | Một số section có thể bị cắt. |
+| `seller-listing-policy` | Sentence (`3 câu/chunk`) | 4 | 288.0 | Giữ câu nhưng chưa giữ được heading. |
+| `seller-listing-policy` | Recursive (`chunk_size=400`) | 10 | 114.6 | Giữ đoạn/câu, nhưng phân mảnh mạnh. |
+| `shipping-policy` | FixedSize (`chunk_size=400`) | 4 | 326.2 | Có thể cắt điều kiện đóng gói. |
+| `shipping-policy` | Sentence (`3 câu/chunk`) | 3 | 432.3 | Mạch lạc nhưng chunk dài hơn. |
+| `shipping-policy` | Recursive (`chunk_size=400`) | 7 | 184.7 | Cân bằng giữa ranh giới đoạn và độ dài. |
 
 ### Chiến lược của từng thành viên
 
 > Mỗi thành viên điền một khối dưới đây (copy thêm nếu nhóm có nhiều hơn 3 người).
 
-**Thành viên 1 — [Tên]**
-- **Loại chiến lược:** [FixedSize / Sentence / Recursive / custom]
-- **Mô tả & lý do chọn cho chủ đề này:** *(2-3 câu)*
-- **Code snippet (nếu custom):**
-```python
-# Dán mã nguồn (implementation) vào đây
-```
+**Thành viên 1 — Trần Đại Nghĩa**
+- **Loại chiến lược:** custom `HeadingSectionChunker(chunk_size=650)`.
+- **Mô tả & lý do chọn:** Corpus đã được chuẩn hóa Markdown theo tiêu đề/section. Chunker giữ tiêu đề chính sách cùng điều khoản phía dưới, loại bỏ chunk chỉ có heading; vì vậy câu hỏi về điều kiện, quy trình và hậu quả vẫn giữ được ngữ cảnh. Corpus 8 tài liệu tạo 23 chunks.
 
-**Thành viên 2 — [Tên]**
-- **Loại chiến lược:**
-- **Mô tả & lý do chọn:**
-- **Code snippet (nếu custom):**
+**Thành viên 2 — Vũ Quang Huy**
+- **Loại chiến lược:** `RecursiveChunker(chunk_size=400)`.
+- **Mô tả & lý do chọn:** Tách ưu tiên theo đoạn, xuống dòng, câu và từ để hạn chế cắt ngang câu. Corpus tạo 28 chunks; phương án này đặc biệt phù hợp khi chính sách có các đoạn/liệt kê dài.
+- **Lưu ý đo lường:** Kết quả hiện dùng `MockEmbedder` do lỗi môi trường AppLocker, nên chỉ dùng để phân tích cấu trúc chunk/filter, không so sánh trực tiếp score với local embedder.
 
-**Thành viên 3 — [Tên]**
-- **Loại chiến lược:**
-- **Mô tả & lý do chọn:**
-- **Code snippet (nếu custom):**
+**Thành viên 3 — Nguyễn Hoàng Sơn**
+- **Loại chiến lược:** Chưa ghi cấu hình chunker trong file kết quả đã merge.
+- **Mô tả & lý do chọn:** Có kết quả chạy `LocalEmbedder`, 5 query chuẩn, A/B metadata filter và phân tích failure case. Thành viên cần bổ sung chính xác loại chunker, tham số và số chunks trước khi chốt bảng so sánh.
+
+**Thành viên 4 — Nguyễn Đức Mạnh**
+- **Loại chiến lược:** `FixedSizeChunker(chunk_size=400, overlap=50)`.
+- **Mô tả & lý do chọn:** Là baseline cố định có overlap để kiểm tra đánh đổi giữa số chunks và việc bảo toàn ngữ cảnh ở ranh giới.
+- **Trạng thái:** Đã merge script benchmark dùng đúng 5 query chuẩn, nhưng chưa có output/top-3/score để tổng hợp.
+
+**Thành viên 5 — Thiều Thị Ngọc Anh**
+- **Loại chiến lược:** `FixedSizeChunker(chunk_size=700, overlap=100)`.
+- **Mô tả & lý do chọn:** Chunk lớn hơn và overlap lớn hơn để so sánh với baseline 400/50; lần chạy ghi nhận 15 chunks, độ dài trung bình 536.6 ký tự.
+- **Trạng thái:** Output hiện dùng MockEmbedder và bộ 5 query khác benchmark nhóm; cần chạy lại đúng 5 query đã chốt bằng local embedder để dùng trong tổng hợp.
 
 ### So Sánh Giữa Các Thành Viên
 
 | Thành viên | Chiến lược (Strategy) | Điểm truy xuất (/10) | Điểm mạnh | Điểm yếu |
 |-----------|----------|----------------------|-----------|----------|
-| | | | | |
-| | | | | |
-| | | | | |
+| Trần Đại Nghĩa | Heading/section custom, 650; local | 10 (5/5 top-3) | Heading đi cùng nội dung, 23 chunks, cả 5 query có chunk liên quan. | Query bằng chứng có chunk đúng ở hạng 3. |
+| Vũ Quang Huy | Recursive, 400; mock | Chưa chấm bằng local (5/5 top-3 theo mock) | Bảo toàn ranh giới đoạn/câu; filter giảm ứng viên từ 28 xuống 8. | Mock không phản ánh ngữ nghĩa; query 1 có top-1 nhiễu. |
+| Nguyễn Hoàng Sơn | Cấu hình chunker chờ bổ sung; local | 6 (tự chấm theo rubric) | Có A/B filter và đánh giá ở cấp chunk. | Query bằng chứng không có chunk video ở top-3; thiếu thông tin cấu hình. |
+| Nguyễn Đức Mạnh | Fixed size, 400/50 | Chờ output | Baseline có overlap, dùng đúng query chuẩn trong script. | Chưa có bảng top-3/score/relevance. |
+| Thiều Thị Ngọc Anh | Fixed size, 700/100; mock | Chờ chạy lại | Có thống kê 15 chunks và so sánh với baseline. | Sai bộ query chuẩn, fallback mock; chưa có agent answer/relevance cho 5 query nhóm. |
 
 **Chiến lược nào tốt nhất cho chủ đề này? Tại sao?**
-> *Viết 2-3 câu — đây là phần được đánh giá cao nhất (khả năng suy nghĩ & giải thích):*
+> **Kết luận tạm thời:** Heading/section custom của Trần Đại Nghĩa là chiến lược tốt nhất trong các kết quả local đã có cấu hình đầy đủ: 5/5 query có chunk liên quan trong top-3 và filter seller trả đúng tập chính sách. Tuy nhiên, chưa thể chốt so sánh cuối cùng khi Mạnh và Anh chưa chạy lại benchmark chuẩn, còn Huy dùng mock; nhóm sẽ cập nhật kết luận sau khi đủ năm output local.
 
 ---
 
@@ -118,14 +136,14 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 
 | # | Câu hỏi | Chiến lược tốt nhất cho câu này | Có chunk liên quan trong top-3? | Ghi chú |
 |---|---------|-------------------------------|-------------------------------|---------|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
-| 4 | | | | |
-| 5 | | | | |
+| 1 | Lý do Trả hàng/Hoàn tiền | Tạm: Heading/section custom (local) | Có | Chunk `return-conditions` ở top-3; cần xem thêm FixedSize 400/50 và 700/100. |
+| 2 | Bằng chứng và quy trình gửi yêu cầu | Tạm: Heading/section custom (local) | Có | Chunk quy trình ở hạng 3; đây là failure case nhẹ. |
+| 3 | Điều kiện COD | Tạm: Heading/section custom (local) | Có | `cod-eligibility` ở top-1. |
+| 4 | Mô tả sản phẩm seller | Tạm: Heading/section custom (local) | Có | Filter seller trả listing policy ở top-1. |
+| 5 | Xử lý vi phạm hàng cấm | Tạm: Heading/section custom (local) | Có | Filter seller trả prohibited-products policy ở top-1. |
 
 **Lọc bằng metadata có giúp ích không? Ở câu hỏi nào?**
-> *Viết 2-3 câu:*
+> Có. Với query 4 và 5, filter `customer_role=seller` loại toàn bộ tài liệu buyer-only (đổi trả/thanh toán) trước khi xếp hạng. Kết quả local của Nghĩa và Sơn đều cho top-1 thuộc `seller-listing-policy` hoặc `prohibited-products-policy`; kết quả Recursive của Huy cũng cho thấy không gian ứng viên giảm từ 28 xuống 8 chunks.
 
 ---
 
