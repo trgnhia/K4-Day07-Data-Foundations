@@ -28,8 +28,4 @@ class KnowledgeBaseAgent:
             f"Context:\n{context}\n\n"
             "Answer briefly and clearly."
         )
-<<<<<<< HEAD
         return self.llm_fn(prompt)
-=======
-        return self.llm_fn(prompt)
->>>>>>> 7aaadb73857cdeb0e186e287ec03c414ebc9648d
