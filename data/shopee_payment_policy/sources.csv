@@ -1,0 +1,4 @@
+doc_id,file_path,title,source_url,retrieved_at,document_version,license_or_permission
+shopee-payment-methods,data/shopee_payment_policy/shopee-payment-methods.md,Các phương thức thanh toán trên Shopee,https://help.shopee.vn/portal/article/1014?locale=vi_VN,2026-08-03,not-stated,public-page
+shopee-cod-policy,data/shopee_payment_policy/shopee-cod-policy.md,Chính sách thanh toán khi nhận hàng (COD) trên Shopee,https://help.shopee.vn/portal/article/1013?locale=vi_VN,2026-08-03,not-stated,public-page
+shopee-payment-refund,data/shopee_payment_policy/shopee-payment-refund.md,Chính sách hoàn tiền và bảo mật thanh toán Shopee,https://help.shopee.vn/portal/article/1016?locale=vi_VN,2026-08-03,not-stated,public-page
