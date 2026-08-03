@@ -17,28 +17,35 @@
 **Chủ đề (cố định theo lớp K4):** Chính sách thương mại điện tử / hỗ trợ khách hàng (thanh toán, đổi trả, giao hàng, quyền riêng tư, điều kiện người bán…).
 
 **Phạm vi cụ thể nhóm tập trung:**
-> *1 câu — ví dụ: đổi trả + điều kiện người bán.*
+> Xây dựng knowledge base về chính sách công khai của Shopee Việt Nam liên quan đến trả hàng/hoàn tiền, thanh toán, đăng bán sản phẩm, hàng cấm/hạn chế và vận chuyển; đánh giá ảnh hưởng của chunking và metadata đến retrieval.
 
 ### Danh sách tài liệu (Data Inventory)
 
 | # | Tên tài liệu | Nguồn (Source URL) | Ngày lấy / Phiên bản | Số ký tự | Metadata đã gán |
 |---|--------------|------------|--------------------|----------|-----------------|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 1 | Chính sách trả hàng và hoàn tiền | https://help.shopee.vn/portal/4/article/77251 | 2026-08-03 / not-stated | 1.113 | `both`, `returns-policy`, `vi` |
+| 2 | Điều kiện và lý do trả hàng hoàn tiền | https://help.shopee.vn/portal/4/article/188931 | 2026-08-03 / not-stated | 894 | `buyer`, `return-conditions`, `vi` |
+| 3 | Quy trình gửi yêu cầu trả hàng hoàn tiền | https://help.shopee.vn/portal/4/article/190242 | 2026-08-03 / not-stated | 856 | `buyer`, `return-process`, `vi` |
+| 4 | Các phương thức thanh toán | https://help.shopee.vn/portal/article/1014?locale=vi_VN | 2026-08-03 / not-stated | 486 | `buyer`, `payment-methods`, `vi` |
+| 5 | Điều kiện thanh toán COD | https://help.shopee.vn/portal/article/1013?locale=vi_VN | 2026-08-03 / not-stated | 496 | `buyer`, `payment-cod`, `vi` |
+| 6 | Quy định đăng bán sản phẩm | https://help.shopee.vn/portal/4/article/77246 | 2026-08-03 / 2024-08-14 | 1.164 | `seller`, `seller-listing`, `vi` |
+| 7 | Chính sách cấm và hạn chế sản phẩm | https://help.shopee.vn/portal/4/article/77247 | 2026-08-03 / not-stated | 1.035 | `seller`, `prohibited-products`, `vi` |
+| 8 | Chính sách vận chuyển | https://help.shopee.vn/portal/4/article/77250 | 2026-08-03 / not-stated | 1.305 | `both`, `shipping-policy`, `vi` |
 
 **Danh sách kiểm tra quản trị dữ liệu (Data governance checklist):**
-- [ ] Tập tài liệu (Corpus) chỉ chứa nguồn công khai/được phép dùng và không chứa dữ liệu cá nhân, thông tin đăng nhập hoặc tài liệu nội bộ.
-- [ ] Mỗi tài liệu có `source_url`, `retrieved_at`, `document_version` (hoặc ngày hiệu lực) trong metadata.
+- [x] Tập tài liệu chỉ chứa 8 nguồn chính sách công khai của Shopee, không có dữ liệu cá nhân, thông tin đăng nhập hoặc tài liệu nội bộ.
+- [x] Mỗi tài liệu có `source_url`, `retrieved_at`, `document_version` trong metadata; danh mục nguồn một-một nằm tại `data/shopee_ecommerce/sources.csv`.
 
 ### Cấu trúc Metadata (Metadata Schema)
 
 | Trường metadata | Kiểu | Ví dụ giá trị | Tại sao hữu ích cho truy xuất (retrieval)? |
 |----------------|------|---------------|-------------------------------|
-| | | | |
-| | | | |
+| `doc_id` | string | `shopee-return-conditions` | Định danh duy nhất; truy vết chunk và xóa theo tài liệu. |
+| `customer_role` | enum | `buyer`, `seller`, `both` | Lọc chính sách đúng đối tượng; bắt buộc cho K4. |
+| `category` | string | `return-process`, `shipping-policy` | Phân vùng chủ đề, giảm nhiễu giữa các chính sách. |
+| `source_url` | URL | `https://help.shopee.vn/...` | Kiểm chứng trực tiếp thông tin nguồn. |
+| `retrieved_at` / `document_version` | date/string | `2026-08-03` / `2024-08-14` | Theo dõi độ mới và phiên bản của chính sách. |
+| `language` | string | `vi` | Xác định ngôn ngữ của corpus/embedding. |
 
 ---
 
@@ -99,11 +106,11 @@ Chạy `ChunkingStrategyComparator().compare()` trên 2-3 tài liệu:
 
 | # | Câu hỏi (Query) | Câu trả lời chuẩn (Gold Answer) | Chunk nào chứa thông tin? |
 |---|-------|-------------------------------|--------------------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
+| 1 | Những lý do nào khiến Người mua có thể yêu cầu Trả hàng/Hoàn tiền? | Chưa nhận/thiếu hàng; sai hàng; bể vỡ, rò rỉ, bao bì hư; hàng lỗi, khác mô tả, đã qua sử dụng, giả hoặc nhái. | `shopee-return-conditions` — “Các lý do có thể được chấp nhận”. |
+| 2 | Người mua cần chuẩn bị và gửi bằng chứng trả hàng/hoàn tiền như thế nào? | Chuẩn bị video mở kiện, ảnh sản phẩm/tem nhãn/kiện hàng; video liên tục, không cắt ghép, rõ mã vận đơn. Trong đơn hàng chọn Trả hàng/Hoàn tiền, chọn lý do, điền mô tả và tải ảnh/video để gửi. | `shopee-return-request-process` — “Bằng chứng nên chuẩn bị”, “Các bước gửi yêu cầu”. |
+| 3 | Khi nào Người mua không thể chọn COD và cần làm gì? | COD chỉ áp dụng khi khu vực và sản phẩm/đơn hàng đủ điều kiện; nếu không đáp ứng điều kiện COD, Người mua phải chọn phương thức thanh toán khác. | `shopee-cod-eligibility` — “Thanh toán khi nhận hàng (COD)”. |
+| 4 | Người bán phải mô tả sản phẩm như thế nào khi đăng bán? **Filter:** `customer_role=seller`. | Mô tả phải đầy đủ, chi tiết, trung thực, rõ ràng; nêu đặc điểm/công dụng/cách dùng/lưu ý, tình trạng hàng cũ, nguồn gốc, xuất xứ, thuộc tính và bảo hành theo yêu cầu; không đưa thông tin liên hệ để quảng cáo/dẫn sang web khác. | `shopee-seller-listing-policy` — “Thông tin đăng bán”. |
+| 5 | Vi phạm chính sách hàng cấm/hạn chế có thể bị xử lý ra sao? **Filter:** `customer_role=seller`. | Shopee có thể xóa sản phẩm, giới hạn, đình chỉ hoặc xóa tài khoản, cấn trừ số dư/phong tỏa quyền rút tiền và áp dụng biện pháp khác theo chính sách hoặc pháp luật. | `shopee-prohibited-products-policy` — “Hậu quả vi phạm”. |
 
 ### Tổng hợp chất lượng truy xuất của nhóm
 
