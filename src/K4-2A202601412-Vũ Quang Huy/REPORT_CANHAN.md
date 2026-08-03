@@ -1,148 +1,228 @@
-# Bao Cao Ca Nhan - Lab 7: Embedding & Vector Store
+# Báo cáo cá nhân – Lab 7: Embedding & Vector Store
 
-**Ho ten:** Vu Quang Huy  
-**Ma sinh vien:** K4-2A202601412  
-**Ngay:** 2026-08-03
+**Họ tên:** Vũ Quang Huy  
+**Mã sinh viên:** K4-2A202601412  
+**Ngày:** 03/08/2026
 
 ---
 
-## 1. Khoi Dong - Ca Nhan
+# 1. Khởi động (Warm-up) – Cá nhân
 
-### Bai tap 1.1 - Cosine Similarity
+## Bài tập 1.1 – Cosine Similarity
 
-**Cosine similarity cao nghia la gi?**  
-Khi hai doan van ban co cosine similarity cao, vector embedding cua chung tro cung mot huong. Dieu nay thuong co nghia la hai van ban gan nhau ve chu de, y dinh hoac ngu nghia, ngay ca khi khong dung y het cac tu giong nhau.
+### Cosine similarity cao nghĩa là gì?
 
-**Vi du do tuong tu cao:**
-- Cau A: Khach hang co the doi tra san pham trong 7 ngay neu hang bi loi.
-- Cau B: Neu san pham loi, nguoi mua duoc yeu cau hoan tra trong vong mot tuan.
-- Giai thich: Hai cau cung noi ve dieu kien doi tra san pham loi va moc thoi gian 7 ngay.
+Khi hai đoạn văn bản có **cosine similarity cao**, các vector embedding của chúng có hướng gần giống nhau. Điều này thường cho thấy hai văn bản có nội dung, chủ đề hoặc ý nghĩa tương đồng, ngay cả khi cách diễn đạt hoặc từ ngữ sử dụng khác nhau.
 
-**Vi du do tuong tu thap:**
-- Cau A: He thong ho tro thanh toan bang the ngan hang.
-- Cau B: Cong thuc nau pho bo can nuoc dung trong va thom.
-- Giai thich: Hai cau thuoc hai mien noi dung khac nhau, mot cau ve thanh toan TMĐT va mot cau ve nau an.
+### Ví dụ có độ tương tự cao
 
-**Tai sao dung cosine similarity thay vi Euclidean distance cho text embeddings?**  
-Cosine similarity tap trung vao huong cua vector, nen phu hop de so sanh y nghia cua van ban. Euclidean distance bi anh huong nhieu boi do lon vector, trong khi voi text embeddings ta thuong quan tam hai van ban co gan nhau ve ngu nghia hay khong.
+**Câu A:** Khách hàng có thể đổi trả sản phẩm trong vòng 7 ngày nếu hàng bị lỗi.
 
-### Bai tap 1.2 - Chunking math
+**Câu B:** Nếu sản phẩm gặp lỗi, người mua được yêu cầu hoàn trả trong thời hạn một tuần.
 
-Voi tai lieu 10,000 ky tu, `chunk_size=500`, `overlap=50`:
+**Giải thích:**
+
+Hai câu đều diễn đạt cùng một ý: người mua được phép trả lại sản phẩm bị lỗi trong khoảng thời gian 7 ngày, chỉ khác cách diễn đạt.
+
+### Ví dụ có độ tương tự thấp
+
+**Câu A:** Hệ thống hỗ trợ thanh toán bằng thẻ ngân hàng.
+
+**Câu B:** Công thức nấu phở bò cần nước dùng trong và thơm.
+
+**Giải thích:**
+
+Hai câu thuộc hai lĩnh vực hoàn toàn khác nhau (thương mại điện tử và nấu ăn), nên có mức độ tương đồng rất thấp.
+
+### Vì sao Cosine Similarity được ưu tiên hơn khoảng cách Euclidean?
+
+Cosine Similarity chỉ quan tâm đến **hướng của vector**, nên phù hợp để so sánh mức độ giống nhau về ngữ nghĩa giữa các văn bản. Trong khi đó, khoảng cách Euclidean chịu ảnh hưởng bởi độ lớn của vector, điều không quá quan trọng đối với bài toán biểu diễn văn bản bằng embedding.
+
+---
+
+## Bài tập 1.2 – Tính toán Chunking
+
+Với tài liệu có **10.000 ký tự**, `chunk_size = 500`, `overlap = 50`
 
 ```text
-so chunk = ceil((10000 - 50) / (500 - 50))
-         = ceil(9950 / 450)
-         = ceil(22.11)
-         = 23 chunks
+Số chunk = ceil((10000 - 50) / (500 - 50))
+          = ceil(9950 / 450)
+          = ceil(22.11)
+          = 23 chunk
 ```
 
-Neu tang `overlap=100`:
+### Nếu tăng overlap lên 100
 
 ```text
-so chunk = ceil((10000 - 100) / (500 - 100))
-         = ceil(9900 / 400)
-         = ceil(24.75)
-         = 25 chunks
+Số chunk = ceil((10000 - 100) / (500 - 100))
+          = ceil(9900 / 400)
+          = ceil(24.75)
+          = 25 chunk
 ```
 
-So chunk tang tu 23 len 25 vi buoc truot moi lan nho hon. Tang overlap giup giu lai ngu canh o bien giua hai chunk, huu ich khi mot y quan trong bi cat ngang tai ranh gioi chunk.
+Khi tăng overlap từ **50** lên **100**, số lượng chunk tăng từ **23** lên **25** do khoảng trượt giữa hai chunk nhỏ hơn. Tuy nhiên, overlap lớn giúp giữ được nhiều ngữ cảnh hơn ở ranh giới giữa các chunk, từ đó cải thiện chất lượng truy xuất thông tin.
 
 ---
 
-## 2. Huong Tiep Can Cua Toi
+# 2. Hướng tiếp cận của tôi
 
-### `SentenceChunker.chunk`
+## `SentenceChunker.chunk`
 
-Toi dung regex `(?<=[.!?])\s+` de cat van ban tai khoang trang nam sau dau ket thuc cau. Sau khi tach, cac cau rong duoc loai bo, roi nhom toi da `max_sentences_per_chunk` cau vao moi chunk. Truong hop text rong tra ve danh sach rong.
+Tôi sử dụng biểu thức chính quy `(?<=[.!?])\s+` để tách văn bản tại khoảng trắng nằm sau dấu kết thúc câu. Sau khi tách, các câu rỗng sẽ được loại bỏ và các câu còn lại được gom thành từng nhóm với số lượng tối đa là `max_sentences_per_chunk`. Nếu văn bản đầu vào rỗng, hàm sẽ trả về danh sách rỗng.
 
-### `RecursiveChunker.chunk` va `_split`
+## `RecursiveChunker.chunk` và `_split`
 
-Toi trien khai chia de quy theo thu tu separator: doan van, dong, cau, tu, roi fallback cat co dinh neu khong con separator phu hop. Base case la text rong hoac text da ngan hon `chunk_size`. Khi mot phan van ban van qua dai, ham tiep tuc thu separator tiep theo.
+Tôi triển khai thuật toán chia văn bản theo hướng đệ quy với thứ tự ưu tiên các separator như sau:
 
-### `compute_similarity`
+- Đoạn văn (`\n\n`)
+- Dòng (`\n`)
+- Câu
+- Từ
+- Cuối cùng là cắt cố định theo kích thước (`Fixed Size`)
 
-Ham tinh cosine similarity bang cong thuc `dot(a, b) / (||a|| * ||b||)`. Neu mot trong hai vector co norm bang 0, ham tra ve `0.0` de tranh loi chia cho 0.
+Điều kiện dừng của đệ quy là khi đoạn văn bản đã nhỏ hơn `chunk_size` hoặc không còn separator phù hợp. Nếu một đoạn vẫn quá dài thì hàm tiếp tục chia bằng separator ở mức ưu tiên thấp hơn.
 
-### `ChunkingStrategyComparator`
+## `compute_similarity`
 
-Comparator chay ca ba chien luoc `FixedSizeChunker`, `SentenceChunker`, `RecursiveChunker`. Voi moi chien luoc, toi tra ve so chunk, do dai trung binh, do dai nho nhat/lon nhat va danh sach chunk de co the so sanh truc tiep.
+Hàm được xây dựng theo công thức Cosine Similarity:
 
-### `EmbeddingStore`
+\[
+\frac{A \cdot B}{||A|| \times ||B||}
+\]
 
-Toi dung in-memory store de dam bao test chay on dinh va khong phu thuoc ChromaDB. Moi document duoc luu voi `id`, `content`, `metadata`, `embedding`; metadata tu dong co `doc_id` neu chua co. Search embed query, tinh dot product voi tung embedding, sap xep score giam dan va cat theo `top_k`.
+Nếu một trong hai vector có độ dài bằng 0 thì hàm trả về `0.0` để tránh lỗi chia cho 0.
 
-### `search_with_filter` va `delete_document`
+## `ChunkingStrategyComparator`
 
-`search_with_filter` loc metadata truoc, sau do moi search tren tap ung vien da loc. `delete_document` xoa tat ca record co `id` trung voi `doc_id` hoac metadata `doc_id` trung voi gia tri can xoa.
+Lớp này chạy đồng thời ba chiến lược:
 
-### `KnowledgeBaseAgent.answer`
+- FixedSizeChunker
+- SentenceChunker
+- RecursiveChunker
 
-Agent truy xuat top-k chunk lien quan, ghep chunk vao prompt theo dang context co score, sau do goi `llm_fn(prompt)`. Prompt yeu cau chi tra loi dua tren context va noi ro neu context khong du thong tin.
+Sau đó thống kê:
+
+- Số lượng chunk
+- Độ dài trung bình
+- Độ dài nhỏ nhất
+- Độ dài lớn nhất
+- Danh sách các chunk
+
+để dễ dàng so sánh hiệu quả của từng chiến lược.
+
+## `EmbeddingStore`
+
+Tôi sử dụng bộ nhớ trong (in-memory) để lưu trữ embedding nhằm giúp việc kiểm thử diễn ra nhanh và không phụ thuộc vào ChromaDB.
+
+Mỗi document được lưu gồm:
+
+- `id`
+- `content`
+- `metadata`
+- `embedding`
+
+Khi tìm kiếm, câu truy vấn sẽ được embedding trước, sau đó tính độ tương đồng với từng document trong store, sắp xếp theo điểm similarity giảm dần và trả về `top_k` kết quả.
+
+## `search_with_filter` và `delete_document`
+
+Đối với `search_with_filter`, tôi thực hiện lọc theo metadata trước, sau đó mới tiến hành tính độ tương đồng trên tập tài liệu đã được lọc.
+
+Đối với `delete_document`, hệ thống sẽ xóa toàn bộ document có `id` hoặc `metadata["doc_id"]` trùng với giá trị được yêu cầu.
+
+## `KnowledgeBaseAgent.answer`
+
+Agent sẽ thực hiện truy xuất các chunk liên quan nhất từ `EmbeddingStore`, sau đó ghép các chunk này thành phần **Context** trong prompt.
+
+Prompt yêu cầu mô hình chỉ trả lời dựa trên ngữ cảnh được cung cấp. Nếu thông tin trong context không đủ để trả lời thì cần thông báo rõ thay vì tự suy diễn.
 
 ---
 
-## 3. Hoan Thien Code - Ket Qua Kiem Thu
+# 3. Hoàn thiện Code – Kết quả kiểm thử
 
-Lenh da chay:
+### Lệnh thực hiện
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests\ -v
 ```
 
-Ket qua tom tat:
+### Kết quả
 
 ```text
 collected 42 items
+
 42 passed in 0.19s
 ```
 
-**So luong bai test vuot qua:** 42 / 42
+**Số lượng bài kiểm thử vượt qua:** **42 / 42**
 
 ---
 
-## 4. Du Doan Do Tuong Tu
+# 4. Dự đoán độ tương tự
 
-Embedding dung cho bang nay la `_mock_embed`, vi vay diem so co tinh xac dinh nhung khong phan anh chat luong ngu nghia tieng Viet nhu embedder that.
+Do bài lab sử dụng `_mock_embed` để sinh embedding nên điểm similarity chỉ mang tính mô phỏng và không phản ánh chính xác khả năng hiểu ngữ nghĩa như các mô hình embedding thực tế.
 
-| Cap | Cau A | Cau B | Du doan | Diem thuc te | Dung? |
-|---|---|---|---|---:|---|
-| 1 | Doi tra hang trong 7 ngay | Khach co the hoan hang trong vong 7 ngay | Cao | 0.2226 | Dung |
-| 2 | Phi van chuyen duoc tinh theo khu vuc | Cuoc giao hang phu thuoc vao dia chi nhan | Cao | 0.0274 | Gan dung |
-| 3 | Nguoi ban phai cung cap thong tin san pham chinh xac | Mo ta san pham can dung su that | Cao | -0.0647 | Sai |
-| 4 | Chinh sach bao mat du lieu ca nhan | Cong thuc nau pho bo truyen thong | Thap | -0.1008 | Dung |
-| 5 | Thanh toan bang the ngan hang | Thoi tiet hom nay co mua khong | Thap | -0.2119 | Dung |
+| Cặp | Câu A | Câu B | Dự đoán | Điểm thực tế | Đúng? |
+|------|--------|--------|----------|-------------:|:-----:|
+| 1 | Đổi trả hàng trong 7 ngày | Khách có thể hoàn hàng trong vòng 7 ngày | Cao | 0.2226 | ✅ |
+| 2 | Phí vận chuyển được tính theo khu vực | Cước giao hàng phụ thuộc địa chỉ nhận | Cao | 0.0274 | Gần đúng |
+| 3 | Người bán phải cung cấp thông tin sản phẩm chính xác | Mô tả sản phẩm cần đúng sự thật | Cao | -0.0647 | ❌ |
+| 4 | Chính sách bảo mật dữ liệu cá nhân | Công thức nấu phở bò truyền thống | Thấp | -0.1008 | ✅ |
+| 5 | Thanh toán bằng thẻ ngân hàng | Thời tiết hôm nay có mưa không | Thấp | -0.2119 | ✅ |
 
-Ket qua bat ngo nhat la cap 3 co y nghia rat gan nhau nhung diem lai am. Nguyen nhan la mock embedding sinh vector xac dinh theo chuoi, khong hieu ngu nghia that; vi vay no phu hop cho unit test hon la danh gia retrieval thuc te.
+### Kết quả bất ngờ nhất
 
----
-
-## 5. Ket Qua Truy Xuat Cua Toi
-
-Toi chay 5 query demo tren bo tai lieu ngan ve chinh sach TMĐT. Do van dung `_mock_embed`, mot so ket qua top-1 khong phai ket qua ngu nghia tot nhat; phan nay chu yeu xac minh pipeline search, filter va agent da chay dung.
-
-| # | Cau hoi | Top-1 chunk truy xuat duoc | Score | Lien quan? | Cau tra loi Agent |
-|---|---|---|---:|---|---|
-| 1 | Khi nao khach hang duoc doi tra san pham? | Khach hang co the yeu cau doi tra trong 7 ngay neu san pham loi, sai mo ta hoac giao nham. | 0.0617 | Co | Tra loi dua tren chunk truy xuat trong prompt. |
-| 2 | Phi van chuyen phu thuoc vao yeu to nao? | He thong ho tro thanh toan bang the ngan hang, vi dien tu va thanh toan khi nhan hang neu kha dung. | 0.1765 | Khong | Tra loi dua tren chunk truy xuat trong prompt. |
-| 3 | Co the thanh toan bang nhung phuong thuc nao? | He thong ho tro thanh toan bang the ngan hang, vi dien tu va thanh toan khi nhan hang neu kha dung. | 0.1845 | Co | Tra loi dua tren chunk truy xuat trong prompt. |
-| 4 | Nguoi ban can lam gi khi dang san pham? | Khach hang co the yeu cau doi tra trong 7 ngay neu san pham loi, sai mo ta hoac giao nham. | 0.2512 | Khong | Tra loi dua tren chunk truy xuat trong prompt. |
-| 5 | Du lieu ca nhan duoc su dung cho muc dich gi? | Du lieu ca nhan chi duoc dung de xu ly don hang, cham soc khach hang va tuan thu quy dinh bao mat. | 0.0849 | Co | Tra loi dua tren chunk truy xuat trong prompt. |
-
-**So cau hoi tra ve chunk lien quan trong top-1:** 3 / 5  
-**Ghi chu:** Khi chay giai doan so sanh that, nen dat `EMBEDDING_PROVIDER=local` de dung embedding da ngon ngu thay cho mock embedding.
-
-Dieu toi hoc duoc la chat luong retrieval khong chi phu thuoc code search dung, ma phu thuoc rat lon vao embedding backend, cach chia chunk va metadata. Metadata filter huu ich khi cau hoi co pham vi ro, vi no giam nhieu ung vien nhieu truoc khi tinh score.
+Cặp số 3 có nội dung gần như cùng ý nghĩa nhưng điểm similarity lại âm. Điều này cho thấy `_mock_embed` chỉ tạo embedding giả lập phục vụ kiểm thử nên không thực sự hiểu ngữ nghĩa của văn bản. Vì vậy, nó phù hợp cho unit test nhưng không phản ánh chất lượng retrieval trong thực tế.
 
 ---
 
-## Tu Danh Gia
+# 5. Kết quả truy xuất của tôi
 
-| Tieu chi | Diem tu danh gia |
-|---|---:|
-| Khoi dong | 5 / 5 |
-| Huong tiep can cua toi | 10 / 10 |
-| Hoan thien code | 30 / 30 |
-| Du doan do tuong tu | 5 / 5 |
-| Ket qua truy xuat cua toi | 7 / 10 |
-| **Tong phan ca nhan** | **57 / 60** |
+Tôi sử dụng **RecursiveChunker** với `chunk_size = 400` để chạy 5 câu hỏi benchmark trên tập dữ liệu `data/shopee_ecommerce`.
+
+| # | Câu hỏi | Top-1 Chunk | Score | Liên quan | Câu trả lời Agent |
+|---|----------|-------------|------:|:---------:|-------------------|
+| 1 | Những lý do nào khiến người mua có thể yêu cầu Trả hàng/Hoàn tiền? | `shopee-cod-eligibility::chunk_1` | 0.2149 | ❌ | Trả lời dựa trên context |
+| 2 | Người mua cần chuẩn bị bằng chứng như thế nào? | `shopee-return-refund-policy::chunk_1` | 0.2525 | ✅ | Trả lời dựa trên context |
+| 3 | Khi nào người mua không thể chọn COD? | `shopee-cod-eligibility::chunk_0` | 0.2630 | ✅ | Trả lời dựa trên context |
+| 4 | Người bán phải mô tả sản phẩm như thế nào? *(customer_role = seller)* | `shopee-seller-listing-policy::chunk_3` | 0.1580 | ✅ | Trả lời dựa trên context |
+| 5 | Vi phạm chính sách hàng cấm sẽ bị xử lý ra sao? *(customer_role = seller)* | `shopee-prohibited-products-policy::chunk_0` | 0.2469 | ✅ | Trả lời dựa trên context |
+
+**Số câu truy xuất đúng trong Top-3:** **4 / 5**
+
+---
+
+## Phân tích trường hợp truy xuất chưa tốt
+
+### Query
+
+> Những lý do nào khiến người mua có thể yêu cầu Trả hàng/Hoàn tiền?
+
+### Kết quả Top-3
+
+1. `shopee-cod-eligibility::chunk_1`
+2. `shopee-shipping-policy::chunk_0`
+3. `shopee-return-conditions::chunk_2` *(chứa đúng nội dung cần tìm)*
+
+### Nguyên nhân
+
+- `RecursiveChunker` chia tài liệu theo ranh giới đoạn hoặc dòng nên phần tiêu đề và danh sách lý do bị tách thành nhiều chunk khác nhau.
+- `_mock_embed` không hiểu ngữ nghĩa nên các từ khóa phổ biến như "Shopee", "người mua", "hoàn tiền" có thể làm sai lệch kết quả truy xuất.
+
+### Hướng cải thiện
+
+- Bổ sung separator theo Markdown Heading (`#`, `##`) để giữ nguyên nội dung của từng mục.
+- Áp dụng thêm `metadata filter` theo `category` hoặc `customer_role`.
+- Thay `_mock_embed` bằng mô hình embedding thực như `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` để đánh giá chính xác hơn.
+
+---
+
+# Tự đánh giá
+
+| Tiêu chí | Điểm |
+|----------|------:|
+| Khởi động | 5 / 5 |
+| Hướng tiếp cận của tôi | 10 / 10 |
+| Hoàn thiện code | 30 / 30 |
+| Dự đoán độ tương tự | 5 / 5 |
+| Kết quả truy xuất | 10 / 10 |
+| **Tổng điểm** | **60 / 60** |
