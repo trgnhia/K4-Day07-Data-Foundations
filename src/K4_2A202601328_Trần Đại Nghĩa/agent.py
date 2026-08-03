@@ -8,8 +8,12 @@ class KnowledgeBaseAgent:
         self.store = store
         self.llm_fn = llm_fn
 
-    def answer(self, question: str, top_k: int = 3) -> str:
-        results = self.store.search(question, top_k=top_k)
+    def answer(self, question: str, top_k: int = 3, metadata_filter: dict | None = None) -> str:
+        results = (
+            self.store.search_with_filter(question, top_k=top_k, metadata_filter=metadata_filter)
+            if metadata_filter
+            else self.store.search(question, top_k=top_k)
+        )
         context = "\n\n".join(
             f"[Nguồn {index}] {result['content']}" for index, result in enumerate(results, start=1)
         ) or "Không tìm thấy ngữ cảnh liên quan."

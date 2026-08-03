@@ -10,6 +10,7 @@ from .chunking import (
 )
 from .models import Document
 from .store import EmbeddingStore
+from .custom_chunker import HeadingSectionChunker
 from ..embeddings import (
     EMBEDDING_PROVIDER_ENV,
     LOCAL_EMBEDDING_MODEL,
@@ -24,6 +25,7 @@ __all__ = [
     "Document", "FixedSizeChunker", "SentenceChunker", "RecursiveChunker",
     "ChunkingStrategyComparator", "compute_similarity", "EmbeddingStore",
     "KnowledgeBaseAgent", "MockEmbedder", "LocalEmbedder", "OpenAIEmbedder",
+    "HeadingSectionChunker",
     "_mock_embed", "LOCAL_EMBEDDING_MODEL", "OPENAI_EMBEDDING_MODEL",
     "EMBEDDING_PROVIDER_ENV",
 ]

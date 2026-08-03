@@ -89,22 +89,29 @@ Kết quả bất ngờ nhất là cặp 1 có nội dung gần nhau nhưng scor
 
 ## 5. Kết quả truy xuất của tôi
 
-Phần này phụ thuộc vào **đúng 5 benchmark queries chung** và corpus 5–10 tài liệu công khai do nhóm thống nhất. Tại thời điểm viết báo cáo, repo chỉ có 2 tài liệu khởi động với URL `example.com`, nên chúng không đủ điều kiện làm corpus chính thức và không thể ghi kết quả benchmark như kết quả nộp cuối.
+### Cấu hình chạy
 
-Kế hoạch chạy lại ngay khi nhóm chốt corpus:
+- **Corpus:** `data/shopee_ecommerce/` — 8 tài liệu chính sách công khai của Shopee.
+- **Embedder:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (local, 384 chiều).
+- **Chiến lược cá nhân:** `HeadingSectionChunker(chunk_size=650)` — giữ tiêu đề Markdown cấp 1 cùng từng section/điều khoản; 8 tài liệu tạo 23 chunks và không có chunk chỉ chứa heading.
+- **top_k:** 3.
+- **Agent:** dùng extractive demo LLM, chỉ trả lại ngữ cảnh đã retrieve; phần “câu trả lời” dưới đây là tóm tắt có căn cứ từ context đó, không thêm thông tin ngoài corpus.
 
-1. Cài `requirements-local.txt`, đặt `EMBEDDING_PROVIDER=local`.
-2. Dùng chung 5 query/gold answer của `REPORT_NHOM.md`.
-3. Nạp corpus bằng `build_knowledge_base(...)`, chạy `search(..., top_k=3)` hoặc `search_with_filter(...)` cho câu hỏi theo vai trò buyer/seller.
-4. Ghi top-1, score, mức liên quan và tóm tắt câu trả lời agent vào bảng bên dưới.
+| # | Câu hỏi (Query) | Top-3 chunks (`doc_id: score`) | Top-1 | Có liên quan trong top-3? | Câu trả lời agent có căn cứ (tóm tắt) |
+|---|---|---|---|---|---|
+| 1 | Những lý do nào khiến Người mua có thể yêu cầu Trả hàng hoặc Hoàn tiền? | `shopee-return-refund-policy: 0.642`; `shopee-return-refund-policy: 0.632`; `shopee-return-conditions: 0.600` | `shopee-return-refund-policy: 0.642` | Có | Các lý do gồm chưa nhận/thiếu/sai hàng, hư hỏng, lỗi, khác mô tả, hàng cũ, giả hoặc nhái. |
+| 2 | Người mua cần chuẩn bị và gửi bằng chứng trả hàng hoặc hoàn tiền như thế nào? | `shopee-return-refund-policy: 0.632`; `shopee-return-refund-policy: 0.629`; `shopee-return-request-process: 0.610` | `shopee-return-refund-policy: 0.632` | Có | Chuẩn bị video mở kiện liên tục, ảnh sản phẩm/tem nhãn/kiện hàng; trong đơn chọn Trả hàng/Hoàn tiền, lý do, mô tả và tải bằng chứng. |
+| 3 | Khi nào Người mua không thể chọn COD và cần làm gì? | `shopee-cod-eligibility: 0.622`; `shopee-return-conditions: 0.562`; `shopee-seller-listing-policy: 0.555` | `shopee-cod-eligibility: 0.622` | Có | COD chỉ dùng cho đơn/khu vực đủ điều kiện; nếu không đủ điều kiện thì chọn phương thức thanh toán khác. |
+| 4 | Người bán phải mô tả sản phẩm như thế nào khi đăng bán? `customer_role=seller` | `shopee-seller-listing-policy: 0.743`; `shopee-seller-listing-policy: 0.670`; `shopee-prohibited-products-policy: 0.469` | `shopee-seller-listing-policy: 0.743` | Có | Mô tả phải đầy đủ, chi tiết, trung thực, rõ ràng; nêu thông tin sản phẩm cần thiết và không chứa thông tin liên hệ để quảng cáo/dẫn web khác. |
+| 5 | Vi phạm chính sách hàng cấm/hạn chế có thể bị xử lý ra sao? `customer_role=seller` | `shopee-prohibited-products-policy: 0.647`; `shopee-prohibited-products-policy: 0.633`; `shopee-prohibited-products-policy: 0.592` | `shopee-prohibited-products-policy: 0.647` | Có | Có thể bị xóa sản phẩm, hạn chế/đình chỉ/xóa tài khoản, cấn trừ số dư hoặc phong tỏa quyền rút tiền, cùng các biện pháp theo chính sách/pháp luật. |
 
-| # | Câu hỏi (Query chung của nhóm) | Top-1 chunk | Score | Relevant | Câu trả lời Agent |
-|---|---|---|---:|---|---|
-| 1 | Chờ nhóm chốt | Chờ chạy benchmark | — | — | — |
-| 2 | Chờ nhóm chốt | Chờ chạy benchmark | — | — | — |
-| 3 | Chờ nhóm chốt | Chờ chạy benchmark | — | — | — |
-| 4 | Chờ nhóm chốt | Chờ chạy benchmark | — | — | — |
-| 5 | Chờ nhóm chốt; có ít nhất một metadata filter buyer/seller | Chờ chạy benchmark | — | — | — |
+**Kết quả:** **5 / 5** query có chunk liên quan trong top-3.
+
+### Nhận xét và failure analysis
+
+Query 2 có chunk chứa quy trình/bằng chứng ở hạng 3, trong khi hai chunk đầu thuộc chính sách tổng quát. Đây là failure case nhẹ: kết quả vẫn có đủ trong top-3, nhưng agent cần đọc đủ ba chunk để trả lời cụ thể. Có thể cải thiện bằng cách giảm `chunk_size` cho tài liệu quy trình, thêm metadata `section=proof`/`section=steps`, hoặc dùng reranking sau retrieval.
+
+Filter `customer_role=seller` giúp query 4 và 5 chỉ xét hai chính sách dành cho người bán, loại nhiễu từ đổi trả/thanh toán dành cho người mua.
 
 ## Tự đánh giá
 
@@ -114,5 +121,5 @@ Kế hoạch chạy lại ngay khi nhóm chốt corpus:
 | Hướng tiếp cận của tôi | 10 / 10 |
 | Hoàn thiện code (42/42 tests) | 30 / 30 |
 | Dự đoán độ tương tự | 5 / 5 |
-| Kết quả truy xuất của tôi | Chờ benchmark nhóm / 10 |
-| **Tổng phần cá nhân hiện có thể xác minh** | **50 / 60** |
+| Kết quả truy xuất của tôi | 10 / 10 |
+| **Tổng phần cá nhân hiện có thể xác minh** | **60 / 60** |
