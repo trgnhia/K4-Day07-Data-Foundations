@@ -1,0 +1,171 @@
+﻿py : Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to 
+enable higher rate limits and faster downloads.
+At line:3 char:1
++ py scripts/evaluate_member5.py 2>&1 | Out-File -FilePath scripts/eval ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Warning: You ar...ster downloads.:String) [], Remote 
+   Exception
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+---
+Building store for baseline FixedSize(400,50)
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê| 199/199 [00:00<00:00, 7674.95it/s]
+Loaded 25 chunks into EmbeddingStore
+
+---
+Building store for member5 FixedSize(700,100)
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê| 199/199 [00:00<00:00, 3984.72it/s]
+Loaded 15 chunks into EmbeddingStore
+
+Baseline chunk stats:
+  chunk count: 25
+  avg_length: 328.0
+  min_length: 63.0
+  max_length: 400.0
+
+Member5 chunk stats:
+  chunk count: 15
+  avg_length: 536.6
+  min_length: 105.0
+  max_length: 700.0
+
+=== Query 1 ===
+[Baseline results]
+
+Query: Shopee quy ─æß╗ïnh nh╞░ thß║┐ n├áo vß╗ü ho├án tiß╗ün khi ─æ╞ín h├áng bß╗ï lß╗ùi?
+  1. score=0.7581 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      hß║¡n. - C├íc ─æ╞ín h├áng kh├íc: trong 15 ng├áy kß╗â tß╗½ khi giao th├ánh c├┤ng.  ## Xß╗¡ l├╜ v├á ho├án tiß╗ün  Ng╞░ß╗¥i mua gß╗¡i y├¬u cß║ºu; Ng╞░ß╗¥i b├ín c├│ thß╗â phß║ún hß╗ôi v├á cung cß║Ñp bß║▒ng chß╗⌐ng; Shopee xem x├⌐t hß╗ô s╞í ─æß╗â quyß║┐t ─æß╗ïnh h
+  2. score=0.6978 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      n h├áng ─æ├│ng g├│i kh├┤ng ─æ├║ng; nß║┐u kiß╗çn vß║½n ─æ╞░ß╗úc b├án giao nh╞░ng bß╗ï h╞░ hß╗Ång/bß╗â vß╗í, ─æ╞ín vß╗ï vß║¡n chuyß╗ân c├│ thß╗â chuyß╗ân ho├án hoß║╖c ti├¬u hß╗ºy khi kh├┤ng thß╗â tiß║┐p tß╗Ñc giao, v├á Ng╞░ß╗¥i b├ín chß╗ïu tr├ích nhiß╗çm vß╗¢i thiß╗çt h
+  3. score=0.6921 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+[Member5 results]
+
+Query: Shopee quy ─æß╗ïnh nh╞░ thß║┐ n├áo vß╗ü ho├án tiß╗ün khi ─æ╞ín h├áng bß╗ï lß╗ùi?
+  1. score=0.7411 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      tß╗½ khi Ng╞░ß╗¥i mua x├íc nhß║¡n nhß║¡n h├áng, hoß║╖c 20 ng├áy tß╗½ trß║íng th├íi ΓÇ£Lß║Ñy h├áng th├ánh c├┤ngΓÇ¥ nß║┐u ch╞░a x├íc nhß║¡n. - C├íc ─æ╞ín h├áng kh├íc: trong 15 ng├áy kß╗â tß╗½ khi giao th├ánh c├┤ng.  ## Xß╗¡ l├╜ v├á ho├án tiß╗ün  Ng╞░ß╗¥i mua
+  2. score=0.7253 doc_id=shopee-return-request-process source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-request-process.md
+      iß╗ün, th├┤ng b├ío ß╗⌐ng dß╗Ñng, email hoß║╖c tr├▓ chuyß╗çn vß╗¢i Shopee. Shopee c├│ thß╗â ho├án tiß╗ün ngay, y├¬u cß║ºu trß║ú h├áng rß╗ôi ho├án tiß╗ün, y├¬u cß║ºu bß╗ò sung bß║▒ng chß╗⌐ng hoß║╖c tß╗½ chß╗æi nß║┐u kh├┤ng ─æß╗º ─æiß╗üu kiß╗çn. Sau khi chß║Ñp th
+  3. score=0.7005 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+       b├¼ v├á kh├┤ng thuß╗Öc danh mß╗Ñc hß║ín chß║┐.  ## Sau khi y├¬u cß║ºu ─æ╞░ß╗úc chß║Ñp nhß║¡n  Shopee Xu ─æ╞░ß╗úc ho├án theo gi├í trß╗ï sß║ún phß║⌐m; m├ú giß║úm gi├í c├│ thß╗â ─æ╞░ß╗úc ho├án trong mß╗Öt sß╗æ tr╞░ß╗¥ng hß╗úp; Shop Voucher v├á m├ú miß╗àn ph├¡ vß║¡
+
+=== Query 2 ===
+[Baseline results]
+
+Query: ─Éiß╗üu kiß╗çn n├áo khiß║┐n Shopee tß╗½ chß╗æi y├¬u cß║ºu trß║ú h├áng?
+  1. score=0.7061 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+  2. score=0.6480 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      # Ch├¡nh s├ích trß║ú h├áng v├á ho├án tiß╗ün  ## Phß║ím vi  Ch├¡nh s├ích quy ─æß╗ïnh quyß╗ün v├á tr├ích nhiß╗çm cß╗ºa Ng╞░ß╗¥i mua, Ng╞░ß╗¥i b├ín, Shopee v├á ─æ╞ín vß╗ï vß║¡n chuyß╗ân khi ph├ít sinh y├¬u cß║ºu trß║ú h├áng hoß║╖c ho├án tiß╗ün tr├¬n Shopee
+  3. score=0.6143 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      ├┤ng hoß║ít ─æß╗Öng, kh├íc m├┤ tß║ú, ─æ├ú qua sß╗¡ dß╗Ñng, giß║ú hoß║╖c nh├íi.  ## Trß║ú h├áng v├¼ ─æß╗òi ├╜  Mß╗Öt sß╗æ ng╞░ß╗¥i mua thuß╗Öc nh├│m Th├ánh vi├¬n Kim C╞░╞íng, Th├ánh vi├¬n V├áng hoß║╖c Shopee VIP c├│ thß╗â ─æ╞░ß╗úc trß║ú h├áng v├¼ ─æß╗òi ├╜ nß║┐u sß║ún
+[Member5 results]
+
+Query: ─Éiß╗üu kiß╗çn n├áo khiß║┐n Shopee tß╗½ chß╗æi y├¬u cß║ºu trß║ú h├áng?
+  1. score=0.7182 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+  2. score=0.6388 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      ├á chß╗ïu tr├ích nhiß╗çm vß╗ü viß╗çc ─æ├│ng g├│i ─æ├║ng quy ─æß╗ïnh. ─É╞ín vß╗ï vß║¡n chuyß╗ân hoß║╖c shipper c├│ thß╗â tß╗½ chß╗æi nhß║¡n h├áng ─æ├│ng g├│i kh├┤ng ─æ├║ng; nß║┐u kiß╗çn vß║½n ─æ╞░ß╗úc b├án giao nh╞░ng bß╗ï h╞░ hß╗Ång/bß╗â vß╗í, ─æ╞ín vß╗ï vß║¡n chuyß╗ân c├│ 
+  3. score=0.6211 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      # Ch├¡nh s├ích trß║ú h├áng v├á ho├án tiß╗ün  ## Phß║ím vi  Ch├¡nh s├ích quy ─æß╗ïnh quyß╗ün v├á tr├ích nhiß╗çm cß╗ºa Ng╞░ß╗¥i mua, Ng╞░ß╗¥i b├ín, Shopee v├á ─æ╞ín vß╗ï vß║¡n chuyß╗ân khi ph├ít sinh y├¬u cß║ºu trß║ú h├áng hoß║╖c ho├án tiß╗ün tr├¬n Shopee
+
+=== Query 3 ===
+[Baseline results]
+
+Query: L├ám sao ─æß╗â ng╞░ß╗¥i b├ín biß║┐t ─æ╞░ß╗úc ti├¬u chuß║⌐n ─æ─âng b├ín sß║ún phß║⌐m tr├¬n Shopee?
+  1. score=0.6954 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      n  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi├í cß║ºn thß╗â hiß╗çn bß║▒ng VN─É, r├╡ r├áng theo tß╗½ng sß║ún phß║⌐m/ph├ón loß║íi v├á kh├┤ng ─æ╞░ß╗úc bß║Ñt hß╗úp l├╜ nhß║▒m ph├│ng ─æß║í
+  2. score=0.6845 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+  3. score=0.6780 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      ├áng ─æ├ú qua sß╗¡ dß╗Ñng, phß║úi n├¬u r├╡ t├¼nh trß║íng; kh├┤ng ─æ╞░ß╗úc d├╣ng nß╗Öi dung m╞í hß╗ô hoß║╖c g├óy hiß╗âu lß║ºm.  Ng╞░ß╗¥i b├ín cß║ºn ─æiß╗ün nguß╗ôn gß╗æc, xuß║Ñt xß╗⌐, thuß╗Öc t├¡nh sß║ún phß║⌐m v├á chß║┐ ─æß╗Ö bß║úo h├ánh theo y├¬u cß║ºu ng├ánh h├áng. Th
+[Member5 results]
+
+Query: L├ám sao ─æß╗â ng╞░ß╗¥i b├ín biß║┐t ─æ╞░ß╗úc ti├¬u chuß║⌐n ─æ─âng b├ín sß║ún phß║⌐m tr├¬n Shopee?
+  1. score=0.6662 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+  2. score=0.6566 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      # Ch├¡nh s├ích trß║ú h├áng v├á ho├án tiß╗ün  ## Phß║ím vi  Ch├¡nh s├ích quy ─æß╗ïnh quyß╗ün v├á tr├ích nhiß╗çm cß╗ºa Ng╞░ß╗¥i mua, Ng╞░ß╗¥i b├ín, Shopee v├á ─æ╞ín vß╗ï vß║¡n chuyß╗ân khi ph├ít sinh y├¬u cß║ºu trß║ú h├áng hoß║╖c ho├án tiß╗ün tr├¬n Shopee
+  3. score=0.6495 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy ─æß╗ïnh vß╗ü ─æ─âng b├ín sß║ún phß║⌐m  *Nß╗Öi dung ─æ├ú ─æ╞░ß╗úc l├ám sß║ích tß╗½ trang ch├¡nh s├ích c├┤ng khai; bß╗Å m├ú HTML/JavaScript, menu v├á phß║ºn tß╗¡ giao diß╗çn kh├┤ng li├¬n quan.*  ## Th├┤ng tin ─æ─âng b├ín  Ng╞░ß╗¥i b├ín phß║úi cun
+
+=== Query 4 ===
+[Baseline results]
+
+Query: Seller phß║úi l├ám g├¼ nß║┐u kh├ích h├áng y├¬u cß║ºu ─æß╗òi trß║ú?
+  1. score=0.6728 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      # Ch├¡nh s├ích trß║ú h├áng v├á ho├án tiß╗ün  ## Phß║ím vi  Ch├¡nh s├ích quy ─æß╗ïnh quyß╗ün v├á tr├ích nhiß╗çm cß╗ºa Ng╞░ß╗¥i mua, Ng╞░ß╗¥i b├ín, Shopee v├á ─æ╞ín vß╗ï vß║¡n chuyß╗ân khi ph├ít sinh y├¬u cß║ºu trß║ú h├áng hoß║╖c ho├án tiß╗ün tr├¬n Shopee
+  2. score=0.6319 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+  3. score=0.6294 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      n  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi├í cß║ºn thß╗â hiß╗çn bß║▒ng VN─É, r├╡ r├áng theo tß╗½ng sß║ún phß║⌐m/ph├ón loß║íi v├á kh├┤ng ─æ╞░ß╗úc bß║Ñt hß╗úp l├╜ nhß║▒m ph├│ng ─æß║í
+[Member5 results]
+
+Query: Seller phß║úi l├ám g├¼ nß║┐u kh├ích h├áng y├¬u cß║ºu ─æß╗òi trß║ú?
+  1. score=0.6400 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      # Ch├¡nh s├ích trß║ú h├áng v├á ho├án tiß╗ün  ## Phß║ím vi  Ch├¡nh s├ích quy ─æß╗ïnh quyß╗ün v├á tr├ích nhiß╗çm cß╗ºa Ng╞░ß╗¥i mua, Ng╞░ß╗¥i b├ín, Shopee v├á ─æ╞ín vß╗ï vß║¡n chuyß╗ân khi ph├ít sinh y├¬u cß║ºu trß║ú h├áng hoß║╖c ho├án tiß╗ün tr├¬n Shopee
+  2. score=0.6279 doc_id=shopee-cod-eligibility source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-cod-eligibility.md
+      # Thanh to├ín khi nhß║¡n h├áng (COD)  Shopee cho ph├⌐p Ng╞░ß╗¥i mua chß╗ìn thanh to├ín khi nhß║¡n h├áng trong khu vß╗▒c v├á vß╗¢i sß║ún phß║⌐m ─æß╗º ─æiß╗üu kiß╗çn. Ng╞░ß╗¥i mua thanh to├ín trß╗▒c tiß║┐p cho nh├ón vi├¬n giao h├áng khi nhß║¡n sß║ú
+  3. score=0.6273 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # ─Éiß╗üu kiß╗çn trß║ú h├áng v├á ho├án tiß╗ün  ## Nguy├¬n tß║»c  Shopee kh├┤ng hß╗ù trß╗ú ─æß╗òi h├áng. Ng╞░ß╗¥i mua chß╗ë c├│ thß╗â y├¬u cß║ºu Ho├án tiß╗ün hoß║╖c Trß║ú h├áng v├á Ho├án tiß╗ün khi sß║ún phß║⌐m ─æ├íp ß╗⌐ng ─æiß╗üu kiß╗çn cß╗ºa Shopee.  ## C├íc l├╜ 
+[Baseline seller-filtered]
+
+Filtered (seller) Query: Seller phß║úi l├ám g├¼ nß║┐u kh├ích h├áng y├¬u cß║ºu ─æß╗òi trß║ú?
+  1. score=0.6294 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      n  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi├í cß║ºn thß╗â hiß╗çn bß║▒ng VN─É, r├╡ r├áng theo tß╗½ng sß║ún phß║⌐m/ph├ón loß║íi v├á kh├┤ng ─æ╞░ß╗úc bß║Ñt hß╗úp l├╜ nhß║▒m ph├│ng ─æß║í
+  2. score=0.4915 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      c mß║╖t h├áng bß╗ï cß║Ñm theo ph├íp luß║¡t.  ## Hß║¡u quß║ú vi phß║ím  Vi phß║ím c├│ thß╗â dß║½n tß╗¢i x├│a sß║ún phß║⌐m, giß╗¢i hß║ín quyß╗ün t├ái khoß║ún, ─æ├¼nh chß╗ë hoß║╖c x├│a t├ái khoß║ún, cß║Ñn trß╗½ sß╗æ d╞░/phong tß╗Åa quyß╗ün r├║t tiß╗ün v├á c├íc biß╗çn ph
+  3. score=0.4893 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      ├áng ─æ├ú qua sß╗¡ dß╗Ñng, phß║úi n├¬u r├╡ t├¼nh trß║íng; kh├┤ng ─æ╞░ß╗úc d├╣ng nß╗Öi dung m╞í hß╗ô hoß║╖c g├óy hiß╗âu lß║ºm.  Ng╞░ß╗¥i b├ín cß║ºn ─æiß╗ün nguß╗ôn gß╗æc, xuß║Ñt xß╗⌐, thuß╗Öc t├¡nh sß║ún phß║⌐m v├á chß║┐ ─æß╗Ö bß║úo h├ánh theo y├¬u cß║ºu ng├ánh h├áng. Th
+[Member5 seller-filtered]
+
+Filtered (seller) Query: Seller phß║úi l├ám g├¼ nß║┐u kh├ích h├áng y├¬u cß║ºu ─æß╗òi trß║ú?
+  1. score=0.5573 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      h├┤ng tin li├¬n hß╗ç nhß║▒m quß║úng c├ío hay dß║½n ng╞░ß╗¥i d├╣ng sang website kh├íc.  ## Danh mß╗Ñc, gi├í v├á vß║¡n chuyß╗ân  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi
+  2. score=0.4373 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy ─æß╗ïnh vß╗ü ─æ─âng b├ín sß║ún phß║⌐m  *Nß╗Öi dung ─æ├ú ─æ╞░ß╗úc l├ám sß║ích tß╗½ trang ch├¡nh s├ích c├┤ng khai; bß╗Å m├ú HTML/JavaScript, menu v├á phß║ºn tß╗¡ giao diß╗çn kh├┤ng li├¬n quan.*  ## Th├┤ng tin ─æ─âng b├ín  Ng╞░ß╗¥i b├ín phß║úi cun
+  3. score=0.4310 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      y, thuß╗æc l├í, thiß║┐t bß╗ï x├óm phß║ím quyß╗ün ri├¬ng t╞░, h├áng h├│a nguy hiß╗âm, mß╗Öt sß╗æ dß╗ïch vß╗Ñ bß║Ñt hß╗úp ph├íp v├á c├íc mß║╖t h├áng bß╗ï cß║Ñm theo ph├íp luß║¡t.  ## Hß║¡u quß║ú vi phß║ím  Vi phß║ím c├│ thß╗â dß║½n tß╗¢i x├│a sß║ún phß║⌐m, giß╗¢i hß║ín
+
+=== Query 5 ===
+[Baseline results]
+
+Query: Seller cß║ºn chuß║⌐n bß╗ï g├¼ ─æß╗â ─æß║úm bß║úo ─æ╞ín h├áng ─æ╞░ß╗úc giao th├ánh c├┤ng?
+  1. score=0.6604 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      n  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi├í cß║ºn thß╗â hiß╗çn bß║▒ng VN─É, r├╡ r├áng theo tß╗½ng sß║ún phß║⌐m/ph├ón loß║íi v├á kh├┤ng ─æ╞░ß╗úc bß║Ñt hß╗úp l├╜ nhß║▒m ph├│ng ─æß║í
+  2. score=0.6180 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      hß║¡n. - C├íc ─æ╞ín h├áng kh├íc: trong 15 ng├áy kß╗â tß╗½ khi giao th├ánh c├┤ng.  ## Xß╗¡ l├╜ v├á ho├án tiß╗ün  Ng╞░ß╗¥i mua gß╗¡i y├¬u cß║ºu; Ng╞░ß╗¥i b├ín c├│ thß╗â phß║ún hß╗ôi v├á cung cß║Ñp bß║▒ng chß╗⌐ng; Shopee xem x├⌐t hß╗ô s╞í ─æß╗â quyß║┐t ─æß╗ïnh h
+  3. score=0.6096 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      kh├┤ng ├íp dß╗Ñng cho phß║ºn vß║¡n chuyß╗ân do Ng╞░ß╗¥i b├ín tß╗▒ tß╗ò chß╗⌐c; trong tr╞░ß╗¥ng hß╗úp ─æ├│ Ng╞░ß╗¥i b├ín tß╗▒ chß╗ïu tr├ích nhiß╗çm theo ph├íp luß║¡t vß╗¢i Ng╞░ß╗¥i mua v├á b├¬n thß╗⌐ ba.  ## ─É├│ng g├│i  Ng╞░ß╗¥i b├ín phß║úi ─æ├│ng g├│i, ni├¬m pho
+[Member5 results]
+
+Query: Seller cß║ºn chuß║⌐n bß╗ï g├¼ ─æß╗â ─æß║úm bß║úo ─æ╞ín h├áng ─æ╞░ß╗úc giao th├ánh c├┤ng?
+  1. score=0.5854 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      tß╗½ khi Ng╞░ß╗¥i mua x├íc nhß║¡n nhß║¡n h├áng, hoß║╖c 20 ng├áy tß╗½ trß║íng th├íi ΓÇ£Lß║Ñy h├áng th├ánh c├┤ngΓÇ¥ nß║┐u ch╞░a x├íc nhß║¡n. - C├íc ─æ╞ín h├áng kh├íc: trong 15 ng├áy kß╗â tß╗½ khi giao th├ánh c├┤ng.  ## Xß╗¡ l├╜ v├á ho├án tiß╗ün  Ng╞░ß╗¥i mua
+  2. score=0.5834 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      h├┤ng tin li├¬n hß╗ç nhß║▒m quß║úng c├ío hay dß║½n ng╞░ß╗¥i d├╣ng sang website kh├íc.  ## Danh mß╗Ñc, gi├í v├á vß║¡n chuyß╗ân  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi
+  3. score=0.5808 doc_id=shopee-return-request-process source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-request-process.md
+      # Quy tr├¼nh gß╗¡i y├¬u cß║ºu trß║ú h├áng v├á ho├án tiß╗ün  ## Bß║▒ng chß╗⌐ng n├¬n chuß║⌐n bß╗ï  Shopee khuyß║┐n kh├¡ch Ng╞░ß╗¥i mua chuß║⌐n bß╗ï video mß╗ƒ kiß╗çn h├áng, ß║únh sß║ún phß║⌐m, tem nh├ún, kiß╗çn h├áng v├á lß╗ïch sß╗¡ tr├▓ chuyß╗çn vß╗¢i Ng╞░ß╗¥i 
+[Baseline seller-filtered]
+
+Filtered (seller) Query: Seller cß║ºn chuß║⌐n bß╗ï g├¼ ─æß╗â ─æß║úm bß║úo ─æ╞ín h├áng ─æ╞░ß╗úc giao th├ánh c├┤ng?
+  1. score=0.6604 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      n  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi├í cß║ºn thß╗â hiß╗çn bß║▒ng VN─É, r├╡ r├áng theo tß╗½ng sß║ún phß║⌐m/ph├ón loß║íi v├á kh├┤ng ─æ╞░ß╗úc bß║Ñt hß╗úp l├╜ nhß║▒m ph├│ng ─æß║í
+  2. score=0.5733 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      ├áng ─æ├ú qua sß╗¡ dß╗Ñng, phß║úi n├¬u r├╡ t├¼nh trß║íng; kh├┤ng ─æ╞░ß╗úc d├╣ng nß╗Öi dung m╞í hß╗ô hoß║╖c g├óy hiß╗âu lß║ºm.  Ng╞░ß╗¥i b├ín cß║ºn ─æiß╗ün nguß╗ôn gß╗æc, xuß║Ñt xß╗⌐, thuß╗Öc t├¡nh sß║ún phß║⌐m v├á chß║┐ ─æß╗Ö bß║úo h├ánh theo y├¬u cß║ºu ng├ánh h├áng. Th
+  3. score=0.5180 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy ─æß╗ïnh vß╗ü ─æ─âng b├ín sß║ún phß║⌐m  *Nß╗Öi dung ─æ├ú ─æ╞░ß╗úc l├ám sß║ích tß╗½ trang ch├¡nh s├ích c├┤ng khai; bß╗Å m├ú HTML/JavaScript, menu v├á phß║ºn tß╗¡ giao diß╗çn kh├┤ng li├¬n quan.*  ## Th├┤ng tin ─æ─âng b├ín  Ng╞░ß╗¥i b├ín phß║úi cun
+[Member5 seller-filtered]
+
+Filtered (seller) Query: Seller cß║ºn chuß║⌐n bß╗ï g├¼ ─æß╗â ─æß║úm bß║úo ─æ╞ín h├áng ─æ╞░ß╗úc giao th├ánh c├┤ng?
+  1. score=0.5834 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      h├┤ng tin li├¬n hß╗ç nhß║▒m quß║úng c├ío hay dß║½n ng╞░ß╗¥i d├╣ng sang website kh├íc.  ## Danh mß╗Ñc, gi├í v├á vß║¡n chuyß╗ân  Ng╞░ß╗¥i b├ín phß║úi chß╗ìn ─æ├║ng danh mß╗Ñc ng├ánh h├áng. Lß╗▒a chß╗ìn sai c├│ thß╗â l├ám sß║ún phß║⌐m bß╗ï ß║⌐n hoß║╖c x├│a. Gi
+  2. score=0.5217 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy ─æß╗ïnh vß╗ü ─æ─âng b├ín sß║ún phß║⌐m  *Nß╗Öi dung ─æ├ú ─æ╞░ß╗úc l├ám sß║ích tß╗½ trang ch├¡nh s├ích c├┤ng khai; bß╗Å m├ú HTML/JavaScript, menu v├á phß║ºn tß╗¡ giao diß╗çn kh├┤ng li├¬n quan.*  ## Th├┤ng tin ─æ─âng b├ín  Ng╞░ß╗¥i b├ín phß║úi cun
+  3. score=0.3794 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      y, thuß╗æc l├í, thiß║┐t bß╗ï x├óm phß║ím quyß╗ün ri├¬ng t╞░, h├áng h├│a nguy hiß╗âm, mß╗Öt sß╗æ dß╗ïch vß╗Ñ bß║Ñt hß╗úp ph├íp v├á c├íc mß║╖t h├áng bß╗ï cß║Ñm theo ph├íp luß║¡t.  ## Hß║¡u quß║ú vi phß║ím  Vi phß║ím c├│ thß╗â dß║½n tß╗¢i x├│a sß║ún phß║⌐m, giß╗¢i hß║ín

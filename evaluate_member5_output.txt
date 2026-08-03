@@ -1,0 +1,160 @@
+
+---
+Building store for baseline FixedSize(400,50)
+Warning: LocalEmbedder is not available. Falling back to mock embedder.
+No module named 'sentence_transformers'
+Loaded 25 chunks into EmbeddingStore
+
+---
+Building store for member5 FixedSize(700,100)
+Warning: LocalEmbedder is not available. Falling back to mock embedder.
+No module named 'sentence_transformers'
+Loaded 15 chunks into EmbeddingStore
+
+Baseline chunk stats:
+  chunk count: 25
+  avg_length: 328.0
+  min_length: 63.0
+  max_length: 400.0
+
+Member5 chunk stats:
+  chunk count: 15
+  avg_length: 536.6
+  min_length: 105.0
+  max_length: 700.0
+
+=== Query 1 ===
+[Baseline results]
+
+Query: Shopee quy định như thế nào về hoàn tiền khi đơn hàng bị lỗi?
+  1. score=0.2697 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      ổ sung bằng chứng hoặc từ chối yêu cầu không đáp ứng điều kiện.
+  2. score=0.2178 doc_id=shopee-cod-eligibility source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-cod-eligibility.md
+      ẩm, địa chỉ nhận hàng và thời hạn giao hàng. Nếu đơn hàng bị hủy hoặc hoàn trả trước giao hàng, việc hoàn tiền được xử lý theo chính sách của sàn.
+  3. score=0.1762 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      ông hoạt động, khác mô tả, đã qua sử dụng, giả hoặc nhái.  ## Trả hàng vì đổi ý  Một số người mua thuộc nhóm Thành viên Kim Cương, Thành viên Vàng hoặc Shopee VIP có thể được trả hàng vì đổi ý nếu sản
+[Member5 results]
+
+Query: Shopee quy định như thế nào về hoàn tiền khi đơn hàng bị lỗi?
+  1. score=0.1668 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # Điều kiện trả hàng và hoàn tiền  ## Nguyên tắc  Shopee không hỗ trợ đổi hàng. Người mua chỉ có thể yêu cầu Hoàn tiền hoặc Trả hàng và Hoàn tiền khi sản phẩm đáp ứng điều kiện của Shopee.  ## Các lý 
+  2. score=0.1468 doc_id=shopee-return-request-process source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-request-process.md
+      iền, thông báo ứng dụng, email hoặc trò chuyện với Shopee. Shopee có thể hoàn tiền ngay, yêu cầu trả hàng rồi hoàn tiền, yêu cầu bổ sung bằng chứng hoặc từ chối nếu không đủ điều kiện. Sau khi chấp th
+  3. score=0.1417 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      à chịu trách nhiệm về việc đóng gói đúng quy định. Đơn vị vận chuyển hoặc shipper có thể từ chối nhận hàng đóng gói không đúng; nếu kiện vẫn được bàn giao nhưng bị hư hỏng/bể vỡ, đơn vị vận chuyển có 
+
+=== Query 2 ===
+[Baseline results]
+
+Query: Điều kiện nào khiến Shopee từ chối yêu cầu trả hàng?
+  1. score=0.1761 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      ông hoạt động, khác mô tả, đã qua sử dụng, giả hoặc nhái.  ## Trả hàng vì đổi ý  Một số người mua thuộc nhóm Thành viên Kim Cương, Thành viên Vàng hoặc Shopee VIP có thể được trả hàng vì đổi ý nếu sản
+  2. score=0.1592 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy định về đăng bán sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  ## Thông tin đăng bán  Người bán phải cun
+  3. score=0.1483 doc_id=shopee-return-refund-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-refund-policy.md
+      Trả hàng/Hoàn tiền sau khi nhận hàng khi sản phẩm sai, khác mô tả, lỗi, hư hỏng hoặc thiếu hàng.  ## Thời hạn gửi yêu cầu  - Thực phẩm tươi sống và đông lạnh: trong 24 giờ kể từ khi giao thành công. -
+[Member5 results]
+
+Query: Điều kiện nào khiến Shopee từ chối yêu cầu trả hàng?
+  1. score=0.1676 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      # Chính sách cấm và hạn chế sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  Chính sách áp dụng cho tất cả Người 
+  2. score=0.1445 doc_id=shopee-payment-methods source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-payment-methods.md
+      # Các phương thức thanh toán trên Shopee  Shopee cung cấp các phương thức thanh toán công khai như Ví ShopeePay, thẻ tín dụng/thẻ ghi nợ, Internet Banking/chuyển khoản ngân hàng và thanh toán khi nhận
+  3. score=0.0943 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      hông tin liên hệ nhằm quảng cáo hay dẫn người dùng sang website khác.  ## Danh mục, giá và vận chuyển  Người bán phải chọn đúng danh mục ngành hàng. Lựa chọn sai có thể làm sản phẩm bị ẩn hoặc xóa. Gi
+
+=== Query 3 ===
+[Baseline results]
+
+Query: Làm sao để người bán biết được tiêu chuẩn đăng bán sản phẩm trên Shopee?
+  1. score=0.2187 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      # Chính sách cấm và hạn chế sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  Chính sách áp dụng cho tất cả Người 
+  2. score=0.2160 doc_id=shopee-cod-eligibility source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-cod-eligibility.md
+      ẩm, địa chỉ nhận hàng và thời hạn giao hàng. Nếu đơn hàng bị hủy hoặc hoàn trả trước giao hàng, việc hoàn tiền được xử lý theo chính sách của sàn.
+  3. score=0.1584 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      á trị sản phẩm; mã giảm giá có thể được hoàn trong một số trường hợp; Shop Voucher và mã miễn phí vận chuyển thường không được hoàn lại. Thời gian xử lý thông thường là khoảng 3–5 ngày làm việc.
+[Member5 results]
+
+Query: Làm sao để người bán biết được tiêu chuẩn đăng bán sản phẩm trên Shopee?
+  1. score=0.1655 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      # Chính sách vận chuyển Shopee  *Nội dung được tóm lược từ chính sách vận chuyển công khai của Shopee để phục vụ retrieval; không sử dụng file dữ liệu khởi động.*  Chính sách vận chuyển quy định hàng 
+  2. score=0.1225 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      à chịu trách nhiệm về việc đóng gói đúng quy định. Đơn vị vận chuyển hoặc shipper có thể từ chối nhận hàng đóng gói không đúng; nếu kiện vẫn được bàn giao nhưng bị hư hỏng/bể vỡ, đơn vị vận chuyển có 
+  3. score=0.1207 doc_id=shopee-return-request-process source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-request-process.md
+      iền, thông báo ứng dụng, email hoặc trò chuyện với Shopee. Shopee có thể hoàn tiền ngay, yêu cầu trả hàng rồi hoàn tiền, yêu cầu bổ sung bằng chứng hoặc từ chối nếu không đủ điều kiện. Sau khi chấp th
+
+=== Query 4 ===
+[Baseline results]
+
+Query: Seller phải làm gì nếu khách hàng yêu cầu đổi trả?
+  1. score=0.3077 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      c mặt hàng bị cấm theo pháp luật.  ## Hậu quả vi phạm  Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn quyền tài khoản, đình chỉ hoặc xóa tài khoản, cấn trừ số dư/phong tỏa quyền rút tiền và các biện ph
+  2. score=0.2358 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      # Chính sách vận chuyển Shopee  *Nội dung được tóm lược từ chính sách vận chuyển công khai của Shopee để phục vụ retrieval; không sử dụng file dữ liệu khởi động.*  Chính sách vận chuyển quy định hàng 
+  3. score=0.2051 doc_id=shopee-cod-eligibility source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-cod-eligibility.md
+      ẩm, địa chỉ nhận hàng và thời hạn giao hàng. Nếu đơn hàng bị hủy hoặc hoàn trả trước giao hàng, việc hoàn tiền được xử lý theo chính sách của sàn.
+[Member5 results]
+
+Query: Seller phải làm gì nếu khách hàng yêu cầu đổi trả?
+  1. score=0.1832 doc_id=shopee-shipping-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-shipping-policy.md
+      à chịu trách nhiệm về việc đóng gói đúng quy định. Đơn vị vận chuyển hoặc shipper có thể từ chối nhận hàng đóng gói không đúng; nếu kiện vẫn được bàn giao nhưng bị hư hỏng/bể vỡ, đơn vị vận chuyển có 
+  2. score=0.1731 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      y, thuốc lá, thiết bị xâm phạm quyền riêng tư, hàng hóa nguy hiểm, một số dịch vụ bất hợp pháp và các mặt hàng bị cấm theo pháp luật.  ## Hậu quả vi phạm  Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn
+  3. score=0.1416 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      hông tin liên hệ nhằm quảng cáo hay dẫn người dùng sang website khác.  ## Danh mục, giá và vận chuyển  Người bán phải chọn đúng danh mục ngành hàng. Lựa chọn sai có thể làm sản phẩm bị ẩn hoặc xóa. Gi
+[Baseline seller-filtered]
+
+Filtered (seller) Query: Seller phải làm gì nếu khách hàng yêu cầu đổi trả?
+  1. score=0.3077 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      c mặt hàng bị cấm theo pháp luật.  ## Hậu quả vi phạm  Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn quyền tài khoản, đình chỉ hoặc xóa tài khoản, cấn trừ số dư/phong tỏa quyền rút tiền và các biện ph
+  2. score=0.1037 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      # Chính sách cấm và hạn chế sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  Chính sách áp dụng cho tất cả Người 
+  3. score=0.0929 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      ực nguồn  Trang chính sách ghi bản cập nhật/công bố ngày 14/08/2024 và có hiệu lực sau 07 ngày kể từ ngày công bố.
+[Member5 seller-filtered]
+
+Filtered (seller) Query: Seller phải làm gì nếu khách hàng yêu cầu đổi trả?
+  1. score=0.1731 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      y, thuốc lá, thiết bị xâm phạm quyền riêng tư, hàng hóa nguy hiểm, một số dịch vụ bất hợp pháp và các mặt hàng bị cấm theo pháp luật.  ## Hậu quả vi phạm  Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn
+  2. score=0.1416 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      hông tin liên hệ nhằm quảng cáo hay dẫn người dùng sang website khác.  ## Danh mục, giá và vận chuyển  Người bán phải chọn đúng danh mục ngành hàng. Lựa chọn sai có thể làm sản phẩm bị ẩn hoặc xóa. Gi
+  3. score=0.0171 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy định về đăng bán sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  ## Thông tin đăng bán  Người bán phải cun
+
+=== Query 5 ===
+[Baseline results]
+
+Query: Seller cần chuẩn bị gì để đảm bảo đơn hàng được giao thành công?
+  1. score=0.1315 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      á trị sản phẩm; mã giảm giá có thể được hoàn trong một số trường hợp; Shop Voucher và mã miễn phí vận chuyển thường không được hoàn lại. Thời gian xử lý thông thường là khoảng 3–5 ngày làm việc.
+  2. score=0.0970 doc_id=shopee-return-request-process source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-request-process.md
+      ng dụng Shopee và chọn đơn hàng cần khiếu nại. 2. Chọn **Trả hàng/Hoàn tiền**, chọn tình huống, sản phẩm và lý do. 3. Điền mô tả, tải hình ảnh hoặc video, rồi gửi yêu cầu.  ## Theo dõi và kết quả  Ngư
+  3. score=0.0553 doc_id=shopee-return-conditions source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-return-conditions.md
+      # Điều kiện trả hàng và hoàn tiền  ## Nguyên tắc  Shopee không hỗ trợ đổi hàng. Người mua chỉ có thể yêu cầu Hoàn tiền hoặc Trả hàng và Hoàn tiền khi sản phẩm đáp ứng điều kiện của Shopee.  ## Các lý 
+[Member5 results]
+
+Query: Seller cần chuẩn bị gì để đảm bảo đơn hàng được giao thành công?
+  1. score=0.1607 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      y, thuốc lá, thiết bị xâm phạm quyền riêng tư, hàng hóa nguy hiểm, một số dịch vụ bất hợp pháp và các mặt hàng bị cấm theo pháp luật.  ## Hậu quả vi phạm  Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn
+  2. score=0.1238 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      # Chính sách cấm và hạn chế sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  Chính sách áp dụng cho tất cả Người 
+  3. score=0.0974 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy định về đăng bán sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  ## Thông tin đăng bán  Người bán phải cun
+[Baseline seller-filtered]
+
+Filtered (seller) Query: Seller cần chuẩn bị gì để đảm bảo đơn hàng được giao thành công?
+  1. score=0.0399 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      ực nguồn  Trang chính sách ghi bản cập nhật/công bố ngày 14/08/2024 và có hiệu lực sau 07 ngày kể từ ngày công bố.
+  2. score=0.0194 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      ách cấm/hạn chế có thể thay đổi nên cần được cập nhật thường xuyên.  ## Ví dụ nhóm hàng bị cấm hoặc hạn chế  Chính sách liệt kê nhiều nhóm như hàng giả/hàng vi phạm quyền sở hữu trí tuệ, vũ khí hoặc v
+  3. score=-0.0194 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      # Chính sách cấm và hạn chế sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  Chính sách áp dụng cho tất cả Người 
+[Member5 seller-filtered]
+
+Filtered (seller) Query: Seller cần chuẩn bị gì để đảm bảo đơn hàng được giao thành công?
+  1. score=0.1607 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      y, thuốc lá, thiết bị xâm phạm quyền riêng tư, hàng hóa nguy hiểm, một số dịch vụ bất hợp pháp và các mặt hàng bị cấm theo pháp luật.  ## Hậu quả vi phạm  Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn
+  2. score=0.1238 doc_id=shopee-prohibited-products-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-prohibited-products-policy.md
+      # Chính sách cấm và hạn chế sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  Chính sách áp dụng cho tất cả Người 
+  3. score=0.0974 doc_id=shopee-seller-listing-policy source=D:\Lab\K4-Day07-Data-Foundations\data\shopee_ecommerce\shopee-seller-listing-policy.md
+      # Quy định về đăng bán sản phẩm  *Nội dung đã được làm sạch từ trang chính sách công khai; bỏ mã HTML/JavaScript, menu và phần tử giao diện không liên quan.*  ## Thông tin đăng bán  Người bán phải cun
