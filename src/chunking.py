@@ -166,4 +166,8 @@ class ChunkingStrategyComparator:
             "fixed_size": _stats(fixed_chunks),
             "by_sentences": _stats(sentence_chunks),
             "recursive": _stats(recursive_chunks),
+<<<<<<< HEAD
         }
+=======
+        }
+>>>>>>> 7aaadb73857cdeb0e186e287ec03c414ebc9648d
