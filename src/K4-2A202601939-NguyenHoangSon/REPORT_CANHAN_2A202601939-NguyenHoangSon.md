@@ -153,20 +153,58 @@ tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_returns_tr
 
 ## 5. Kết quả truy xuất của tôi (Competition Results) — Cá nhân (10 điểm)
 
-Chạy **5 câu hỏi đánh giá của nhóm** trên mã nguồn cá nhân của bạn trong gói `src`. **5 câu hỏi này phải trùng với các thành viên cùng nhóm** (xem `REPORT_NHOM.md`).
+**Mô hình Embedding sử dụng:** `LocalEmbedder` (`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`) — Mô hình nhúng đa ngôn ngữ thực tế.
 
-| # | Câu hỏi (Query) | Top-1 Chunk truy xuất được (tóm tắt) | Điểm Score | Có liên quan không? (Relevant) | Câu trả lời của Agent (tóm tắt) |
-|---|-------|--------------------------------|-------|-----------|------------------------|
-| 1 | Thời hạn người mua gửi yêu cầu đổi trả là bao lâu? | Khách hàng gửi yêu cầu đổi trả trong 7 ngày | 0.92 | Có | Người mua cần gửi yêu cầu đổi trả trong 7 ngày. |
-| 2 | Người bán có trách nhiệm gì khi nhận yêu cầu trả hàng? | Người bán phản hồi quy trình trong 24h | 0.88 | Có | Người bán phản hồi theo quy trình xử lý của sàn. |
-| 3 | Điều kiện để đăng sản phẩm bán trên sàn là gì? | Người bán cung cấp chứng nhận nguồn gốc | 0.85 | Có | Người bán phải cung cấp chứng nhận nguồn gốc hợp lệ. |
-| 4 | Phí vận chuyển do ai chi trả khi sản phẩm bị lỗi? | Sàn miễn phí vận chuyển cho sản phẩm lỗi | 0.90 | Có | Chi phí vận chuyển do sàn/người bán đền bù. |
-| 5 | Làm sao để thay đổi địa chỉ nhận hàng sau khi đặt? | Liên hệ bộ phận chăm sóc khách hàng trước khi giao | 0.87 | Có | Liên hệ bộ phận CSKH trước khi đơn hàng chuyển giao. |
+Chạy **5 câu hỏi đánh giá của nhóm** trên mã nguồn cá nhân trong gói `src.K4-2A202601939-NguyenHoangSon` sử dụng các chiến lược chunking trên corpus `data/shopee_ecommerce/` (8 tài liệu chính sách công khai Shopee):
 
-**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** **5** / 5
+### Kết quả Benchmark theo Thang điểm Rubric (Chấm ở cấp độ Chunk):
 
-**Điều hay nhất tôi học được từ thành viên khác / nhóm khác (qua demo):**
-> Việc sử dụng chiến lược chia nhỏ văn bản dựa trên tiêu đề và cặp FAQ (FAQ-based / Heading-based Chunking) giúp các câu hỏi tra cứu chính sách ngắn nhận diện chính xác ngữ cảnh bối cảnh hơn so với chia theo kích thước cố định. Ngoài ra, lọc siêu dữ liệu theo `customer_role` trước khi truy xuất giúp hạn chế tình trạng trả về nhầm chính sách giữa người mua và người bán.
+| # | Câu hỏi (Query) | Metadata Filter | Top-1 Chunk truy xuất được (doc_id & score) | Đáp ứng Chuỗi đặc trưng đáp án? | Điểm Rubric (0/1/2) | Câu trả lời của Agent (tóm tắt) |
+|---|-------|-----------------|---------------------------------------------|--------------------------------|----------------------|--------------------------------|
+| 1 | Những lý do nào khiến Người mua có thể yêu cầu Trả hàng/Hoàn tiền? | None | `shopee-return-conditions` (`chunk_1`, score=0.6104) | Có (`trả hàng` xuất hiện trong Top-1) | **2 / 2** | Người mua có thể yêu cầu trả hàng/hoàn tiền khi chưa nhận được hàng, thiếu hàng, sai hàng hoặc hàng hư hỏng. |
+| 2 | Người mua cần chuẩn bị và gửi bằng chứng trả hàng/hoàn tiền như thế nào? | None | `shopee-return-refund-policy` (`chunk_3`, score=0.6414) | Không ở Top-1 (chunk chứa `video` ở `shopee-return-request-process` nằm ngoài Top-3) | **0 / 2** | Agent trả về ngữ cảnh chung về xử lý hoàn tiền nhưng thiếu quy trình quay video mở kiện hàng cụ thể. |
+| 3 | Khi nào Người mua không thể chọn COD và cần làm gì? | None | `shopee-cod-eligibility` (`chunk_1`, score=0.6968) | Có (`COD` & giải pháp chọn PTTT khác xuất hiện ở Top-1) | **2 / 2** | Nếu đơn hàng không đáp ứng điều kiện COD, Người mua phải chọn phương thức thanh toán khác. |
+| 4 | Người bán phải mô tả sản phẩm như thế nào khi đăng bán? | `{"customer_role": "seller"}` | `shopee-seller-listing-policy` (`chunk_1`, score=0.6909) | Có (Chứa yêu cầu mô tả trung thực, rõ ràng) | **1 / 2** | Người bán phải mô tả đầy đủ, chi tiết, trung thực và rõ ràng đặc điểm, công dụng của sản phẩm. |
+| 5 | Vi phạm chính sách hàng cấm/hạn chế có thể bị xử lý ra sao? | `{"customer_role": "seller"}` | `shopee-prohibited-products-policy` (`chunk_1`, score=0.5979) | Có (Chunk liệt kê các hình thức xử lý vi phạm) | **1 / 2** | Vi phạm có thể dẫn tới xóa sản phẩm, giới hạn quyền tài khoản, đình chỉ hoặc xóa tài khoản. |
+
+**Tổng điểm Rubric Benchmark:** **6 / 10** điểm.
+
+---
+
+### Đánh giá Chi tiết: Chấm ở cấp độ Chunk (Chunk-Level vs Doc-ID Matching)
+
+- **Tại sao chỉ kiểm tra `doc_id` là chưa đủ:** 
+  Ở **Query 5**, nếu chỉ kiểm tra xem tài liệu `shopee-prohibited-products-policy` có xuất hiện trong Top-3 hay không, kết quả sẽ là 100% khớp (Match). Tuy nhiên, chấm ở cấp độ Chunk cho thấy: `chunk_index=1` (nói về nhóm hàng bị cấm) đứng Top-1 với score=0.5979, trong khi `chunk_index=2` (chứa câu trả lời trực tiếp về *Hậu quả xử lý vi phạm*) lại nhận score thấp hơn. Điều này chứng minh Cosine similarity đo độ tương đồng chủ đề chung chứ không đo độ tập trung câu trả lời.
+
+---
+
+### Đánh giá Thử nghiệm A/B Metadata Filter
+
+Thử nghiệm so sánh khi **Có Filter (`customer_role="seller"`)** và **Không có Filter**:
+
+- **Query 4 (Quy định mô tả sản phẩm cho Người bán):**
+  - *Khi không dùng Filter:* Top-3 xuất hiện chunk từ `shopee-return-conditions` (Score = 0.6279) gây nhiễu từ chính sách Người mua.
+  - *Khi áp dụng Filter `{"customer_role": "seller"}`:* Loại bỏ hoàn toàn 100% các tài liệu Người mua, 100% Top-3 chunks trả về đều thuộc `shopee-seller-listing-policy` và `shopee-prohibited-products-policy`. Score Top-1 đạt **0.6909**.
+- **Kết luận:** Metadata Filter giúp tăng độ chính xác (Precision), loại bỏ nhiễu liên miền (cross-domain noise) giữa Người mua và Người bán.
+
+---
+
+### Phân tích Phân bố Lỗi (Failure Case Analysis)
+
+- **Query thất bại rõ ràng nhất:** **Query 2** (*"Người mua cần chuẩn bị và gửi bằng chứng trả hàng/hoàn tiền như thế nào?"*)
+- **Dấu hiệu thực nghiệm:**
+  - `Top-1` Score = 0.6414: `shopee-return-refund-policy` (`chunk_3` — *"Người mua gửi yêu cầu; Người bán có thể phản hồi..."*)
+  - `Top-2` Score = 0.6219: `shopee-cod-eligibility` (`chunk_1` — *"Nếu đơn hàng không đáp ứng điều kiện COD..."*)
+  - `Top-3` Score = 0.6002: `shopee-return-request-process` (`chunk_5` — *"Sau khi chấp thuận, tiền hoàn..."*)
+- **Nguyên nhân gốc rễ (Root Cause):**
+  1. Chunk chứa từ khóa quan trọng `"quay video mở kiện hàng"` nằm ở `shopee-return-request-process` (`chunk_2`), nhưng câu hỏi sử dụng cụm từ *"bằng chứng trả hàng"*. Vector nhúng ngữ nghĩa (`paraphrase-multilingual-MiniLM-L12-v2`) ưu tiên tài liệu tổng quan chính sách (`shopee-return-refund-policy`) hơn là tài liệu quy trình thao tác chi tiết.
+  2. Cosine similarity đánh giá điểm dựa trên bối cảnh chung của tài liệu chính sách hoàn tiền chứ không nhận diện được mật độ thông tin quy trình thao tác (procedural density).
+- **Giải pháp đề xuất (Actionable Proposal):**
+  1. **Bổ sung Metadata Section / Heading:** Gắn metadata `section_title: "gửi bằng chứng"` vào từng chunk để có thể filter hoặc rerank.
+  2. **Tìm kiếm lai (Hybrid Search):** Kết hợp BM25 (tìm kiếm từ khóa chính xác như `video`, `bằng chứng`) với Dense Vector Search để đảm bảo các chunk chứa từ khóa thao tác cụ thể không bị đẩy khỏi Top-3.
+
+
+
 
 ---
 
